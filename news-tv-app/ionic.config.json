@@ -1,5 +1,5 @@
 {
-  "name": "news-app",
+  "name": "ionic-app-base",
   "integrations": {},
   "type": "angular"
 }
