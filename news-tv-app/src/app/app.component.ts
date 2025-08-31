@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { StorageService } from './providers/storage';
 import { EncryptService } from './providers/encrypt';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -12,22 +13,35 @@ import { EncryptService } from './providers/encrypt';
 export class AppComponent {
   constructor(
     private storage: StorageService,
-    private encrypt: EncryptService
+    private encrypt: EncryptService,
+    private userService: UserService,
   ) {}
 ngOnInit() {
-    // 1. Prueba de StorageService
-    const testObj = { foo: 'bar' };
-    this.storage.setObject('testObj', testObj);
-    console.log('StorageService.getObject("testObj"):', this.storage.getObject<typeof testObj>('testObj'));
+ // Registro
+  try {
+    const u = this.userService.register({
+      name: 'Jane',
+      lastName: 'Doe',
+      email: 'jane@doe.com',
+      passwordRaw: '1234567890',
+      country: { id: 'Colombia', value: '🇨🇴 Colombia' }
+    });
+    console.log('Usuario registrado:', u);
+  } catch (e: any) {
+    console.warn(e.message);
+  }
 
-    this.storage.setString('greeting', '¡Hola Ionic!');
-    console.log('StorageService.getString("greeting"):', this.storage.getString('greeting'));
+  // Login
+  try {
+    const logged = this.userService.login('jane@doe.com', '1234567890');
+    console.log('Usuario autenticado:', logged);
+  } catch (e: any) {
+    console.error(e.message);
+  }
 
-    // 2. Prueba de EncryptService
-    const raw = 'miContraseña123';
-    const hashed = this.encrypt.encrypt(raw);
-    console.log('EncryptService.encrypt(raw):', hashed);
-    console.log('EncryptService.compare(raw, hashed):', this.encrypt.compare(raw, hashed));
+  // Usuario actual
+  console.log('Current user:', this.userService.getCurrentUser());
+
   }
 
   }
