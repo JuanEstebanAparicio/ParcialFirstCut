@@ -20,3 +20,9 @@ ion-menu {
 ion-item[color="danger"] {
   margin-top: 24px;
 }
+ion-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}

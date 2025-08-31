@@ -27,16 +27,21 @@ private storage: StorageService
 
  }
 
- loadNews(){
-this.newsService.getTopHeadlines(this.selectedCategory).subscribe({
-next: res => this.articles = res.articles,
-error: () => this.toast.show('Error al cargar noticias', {color: 'danger'})
-});
- }
-changeCategory(cat: string) {
-this.selectedCategory = cat;
-this.loadNews();
+
+loadNews() {
+  const category = this.selectedCategory || undefined;
+  this.newsService.getTopHeadlines(category).subscribe({
+    next: res => this.articles = res.articles,
+    error: () => this.toast.show('Error al cargar noticias', { color: 'danger' })
+  });
 }
+
+
+changeCategory(cat: string) {
+  this.selectedCategory = cat;
+  this.loadNews();
+}
+
 
 logout() {
 this.storage.remove('current_user');

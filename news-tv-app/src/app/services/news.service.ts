@@ -9,10 +9,13 @@ export class NewsService {
 
   constructor(private http: HttpClient) {}
 
-  getTopHeadlines(category: string = 'general') {
-    const url = `${this.baseUrl}/top-headlines?country=co&category=${category}&apiKey=${this.apiKey}`;
-    return this.http.get<any>(url);
+getTopHeadlines(category?: string) {
+  let url = `${this.baseUrl}/top-headlines?country=us&apiKey=${this.apiKey}`;
+  if (category) {
+    url += `&category=${category}`;
   }
+  return this.http.get<any>(url);
+}
 
 }
 
