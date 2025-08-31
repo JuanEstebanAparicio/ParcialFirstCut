@@ -1,14 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-news-detail-modal',
   templateUrl: './news-detail-modal.component.html',
   styleUrls: ['./news-detail-modal.component.scss'],
 })
-export class NewsDetailModalComponent  implements OnInit {
+export class NewsDetailModalComponent {
+  @Input() article: any;
 
-  constructor() { }
+  constructor(private modalCtrl: ModalController) {}
 
-  ngOnInit() {}
+  close() {
+    this.modalCtrl.dismiss();
+  }
 
+  openOriginal() {
+    window.open(this.article.url, '_blank');
+  }
 }

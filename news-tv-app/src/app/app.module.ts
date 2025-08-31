@@ -8,10 +8,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { NewsDetailModalComponent } from './components/news-detail-modal/news-detail-modal.component';
+
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NewsDetailModalComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

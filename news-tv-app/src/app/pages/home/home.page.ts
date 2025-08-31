@@ -3,6 +3,8 @@ import { NewsService } from 'src/app/services/news.service';
 import { ToastService } from 'src/app/providers/toast';
 import { NavController } from '@ionic/angular';
 import { StorageService } from 'src/app/providers/storage';
+import { NewsDetailModalComponent } from 'src/app/components/news-detail-modal/news-detail-modal.component';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -20,12 +22,15 @@ categories: string[] = ['general', 'business', 'entertainment', 'health', 'scien
 private newsService: NewsService,
 private toast: ToastService,
 private navCtrl: NavController,
-private storage: StorageService
+private storage: StorageService,
   ) {}
 
  ngOnInit(){
 
  }
+
+
+ 
 
 
 loadNews() {

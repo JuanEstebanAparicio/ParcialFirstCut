@@ -1,3 +1,32 @@
-<p>
-  news-detail-modal works!
-</p>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Detalle de noticia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <img
+    *ngIf="article.urlToImage"
+    [src]="article.urlToImage"
+    class="hero-img"
+  />
+  <h2>{{ article.title }}</h2>
+  <p class="meta">
+    {{ article.source.name }}
+    <span *ngIf="article.author">• {{ article.author }}</span>
+  </p>
+  <p *ngIf="article.content">{{ article.content }}</p>
+  <ion-button
+    expand="block"
+    fill="outline"
+    (click)="openOriginal()"
+    class="open-btn"
+  >
+    Leer artículo completo
+  </ion-button>
+</ion-content>
