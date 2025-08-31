@@ -1,20 +1,38 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Noticias</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Cerrar sesión</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <!-- Filtro lateral -->
+      <ion-col size="12" sizeMd="3">
+        <ion-list>
+          <ion-item *ngFor="let cat of categories" button (click)="changeCategory(cat)">
+            <ion-label>{{ cat | titlecase }}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+      <!-- Noticias -->
+      <ion-col size="12" sizeMd="9">
+        <ion-card *ngFor="let article of articles">
+          <img *ngIf="article.urlToImage" [src]="article.urlToImage" />
+          <ion-card-header>
+            <ion-card-title>{{ article.title }}</ion-card-title>
+            <ion-card-subtitle>{{ article.source.name }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            {{ article.description }}
+          </ion-card-content>
+          <ion-button fill="clear" [href]="article.url" target="_blank">Leer más</ion-button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
