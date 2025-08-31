@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
   selector: 'app-news-detail-modal',
   templateUrl: './news-detail-modal.component.html',
   styleUrls: ['./news-detail-modal.component.scss'],
+  standalone: false
 })
 export class NewsDetailModalComponent {
   @Input() article: any;

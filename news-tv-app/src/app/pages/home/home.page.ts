@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsService } from 'src/app/services/news.service';  
 import { ToastService } from 'src/app/providers/toast';
-import { NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { StorageService } from 'src/app/providers/storage';
 import { NewsDetailModalComponent } from 'src/app/components/news-detail-modal/news-detail-modal.component';
 
@@ -23,14 +23,21 @@ private newsService: NewsService,
 private toast: ToastService,
 private navCtrl: NavController,
 private storage: StorageService,
+private modalCtrl: ModalController
   ) {}
 
  ngOnInit(){
 
  }
+   async openArticle(article: any) {
+    const modal = await this.modalCtrl.create({
+      component: NewsDetailModalComponent,
+      componentProps: { article },
+      cssClass: 'news-modal'
+    });
+    await modal.present();
+  }
 
-
- 
 
 
 loadNews() {
