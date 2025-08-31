@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,Input } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-modal',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./modal.component.scss'],
   standalone: false
 })
-export class ModalComponent  implements OnInit {
+export class NewDetailsModalComponents {
+@Input() article: any;
+  constructor(private modalCtrl: ModalController) { }
 
-  constructor() { }
+  close(){
+    this.modalCtrl.dismiss();
+  }
 
-  ngOnInit() {}
+  openOriginal(){
+    window.open(this.article.url, '_blank');
+  }
+
 
 }
