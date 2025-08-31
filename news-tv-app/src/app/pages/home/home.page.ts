@@ -27,6 +27,7 @@ private modalCtrl: ModalController
   ) {}
 
  ngOnInit(){
+  this.loadNews();
 
  }
    async openArticle(article: any) {
@@ -40,13 +41,15 @@ private modalCtrl: ModalController
 
 
 
-loadNews() {
-  const category = this.selectedCategory || undefined;
-  this.newsService.getTopHeadlines(category).subscribe({
-    next: res => this.articles = res.articles,
-    error: () => this.toast.show('Error al cargar noticias', { color: 'danger' })
-  });
-}
+  loadNews() {
+    this.newsService
+      .getTopHeadlines(this.selectedCategory)
+      .subscribe({
+        next: res => (this.articles = res.articles),
+        error: () => this.toast.show('Error al cargar noticias', { color: 'danger' })
+      });
+  }
+
 
 
 changeCategory(cat: string) {
