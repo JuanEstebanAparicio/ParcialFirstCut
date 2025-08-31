@@ -7,73 +7,91 @@
 <ion-content [fullscreen]="true">
   <div class="form-wrapper">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
       <ion-list lines="none">
-<div class="contenedor fila">
-  <ion-item class="item-flex">
-    <ion-label position="floating">Nombre</ion-label>
-    <ion-input formControlName="name" type="text"></ion-input>
-  </ion-item>
 
-  <ion-item class="item-flex">
-    <ion-label position="floating">Apellido</ion-label>
-    <ion-input formControlName="lastName" type="text"></ion-input>
-  </ion-item>
-</div>
+        <!-- Nombre y Apellido -->
+        <div class="contenedor fila">
+          <ion-item class="item-flex">
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input formControlName="name" type="text"></ion-input>
+          </ion-item>
+          <ion-item class="item-flex">
+            <ion-label position="floating">Apellido</ion-label>
+            <ion-input formControlName="lastName" type="text"></ion-input>
+          </ion-item>
+        </div>
 
+        <!-- Correo -->
         <ion-item>
           <ion-label position="floating">Correo electrónico</ion-label>
           <ion-input formControlName="email" type="email"></ion-input>
         </ion-item>
+        <ion-text color="danger" *ngIf="email?.invalid && (email?.touched || email?.dirty)">
+          <div *ngIf="email?.errors?.['required']">Este campo es obligatorio.</div>
+          <div *ngIf="email?.errors?.['email']">Formato de correo inválido.</div>
+        </ion-text>
 
+        <!-- Contraseña -->
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input formControlName="passwordRaw" type="password"></ion-input>
         </ion-item>
+        <ion-text color="danger" *ngIf="passwordRaw?.invalid && (passwordRaw?.touched || passwordRaw?.dirty)">
+          <div *ngIf="passwordRaw?.errors?.['required']">Este campo es obligatorio.</div>
+          <div *ngIf="passwordRaw?.errors?.['minlength']">Debe tener al menos 6 caracteres.</div>
+        </ion-text>
 
-<!-- Buscador de país -->
+        <!-- Confirmar contraseña -->
+        <ion-item>
+          <ion-label position="floating">Confirmar contraseña</ion-label>
+          <ion-input formControlName="confirmPassword" type="password"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="registerForm.errors?.['passwordMismatch'] && confirmPassword?.touched">
+          Las contraseñas no coinciden.
+        </ion-text>
 
-<!-- Buscador y Select -->
-<div class="contenedorlbl">
-  <ion-label>Busca tu país</ion-label>
-  <ion-label>Selecciona tu país</ion-label>
-</div>
+        <!-- Buscador y Select de país -->
+        <div class="contenedorlbl">
+          <ion-label>Busca tu país</ion-label>
+          <ion-label>Selecciona tu país</ion-label>
+        </div>
 
-<div class="contenedor fila">
-  <ion-item class="item-flex">
-    <ion-searchbar
-      [(ngModel)]="countrySearch"
-      [ngModelOptions]="{standalone: true}"
-      placeholder="EJ:Colombia"
-      debounce="300"
-      (ionInput)="filterCountries()"
-      showCancelButton="focus"
-      animated="true">
-    </ion-searchbar>
-  </ion-item>
+        <div class="contenedor fila">
+          <ion-item class="item-flex">
+            <ion-searchbar
+              [(ngModel)]="countrySearch"
+              [ngModelOptions]="{standalone: true}"
+              placeholder="EJ: Colombia"
+              debounce="300"
+              (ionInput)="filterCountries()"
+              showCancelButton="focus"
+              animated="true">
+            </ion-searchbar>
+          </ion-item>
 
-  <ion-item class="item-flex">
-    <ion-select formControlName="country" interface="popover">
-      <ion-select-option *ngFor="let c of filteredCountries" [value]="c">
-        <img [src]="c.flagUrl" width="24" height="18" style="margin-right: 8px;" />
-        {{ c.name }}
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
-</div>
-
-        <div class="button-group">
-          <ion-button expand="block" type="submit" [disabled]="registerForm.invalid" color="success">
-            Registrarme
-          </ion-button>
-
-          <ion-text color="medium" class="login-link">
-            ¿Ya tienes cuenta?
-            <a routerLink="/login">Inicia sesión</a>
-          </ion-text>
+          <ion-item class="item-flex">
+            <ion-select formControlName="country" interface="popover">
+              <ion-select-option *ngFor="let c of filteredCountries" [value]="c">
+                <img [src]="c.flagUrl" width="24" height="18" style="margin-right: 8px;" />
+                {{ c.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
         </div>
 
       </ion-list>
+
+      <!-- Botón y enlace -->
+      <div class="button-group">
+        <ion-button expand="block" type="submit" [disabled]="registerForm.invalid" color="success">
+          Registrarme
+        </ion-button>
+
+        <ion-text color="medium" class="login-link">
+          ¿Ya tienes cuenta?
+          <a routerLink="/login">Inicia sesión</a>
+        </ion-text>
+      </div>
     </form>
   </div>
 </ion-content>
