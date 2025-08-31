@@ -5,9 +5,47 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <app-input
+      formControlName="name"
+      label="Nombre"
+      type="text">
+    </app-input>
+
+    <app-input
+      formControlName="lastName"
+      label="Apellido"
+      type="text">
+    </app-input>
+
+    <app-input
+      formControlName="email"
+      label="Correo"
+      type="email">
+    </app-input>
+
+    <app-input
+      formControlName="passwordRaw"
+      label="Contraseña"
+      type="password">
+    </app-input>
+
+    <app-select
+      formControlName="country"
+      label="País"
+      [options]="countries">
+    </app-select>
+
+    <app-button
+      [type]="'submit'"
+      [disabled]="registerForm.invalid">
+      Registrarme
+    </app-button>
+
+    <app-link
+      [routerLink]="'/login'">
+      ¿Ya tienes cuenta? Inicia sesión
+    </app-link>
+  </form>
+
 </ion-content>
