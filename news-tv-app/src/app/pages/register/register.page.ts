@@ -93,7 +93,7 @@ export class RegisterPage implements OnInit {
     try {
       const user: User = this.userService.register(data);
       this.toast.show(`Registro exitoso, Bienvenido ${user.name}`, { color: 'success' });
-      this.navCtrl.navigateRoot('/home');
+      this.navCtrl.navigateRoot('/register');
     } catch (err: any) {
       this.toast.show(err.message, { color: 'danger' });
     }
