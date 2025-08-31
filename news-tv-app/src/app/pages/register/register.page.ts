@@ -17,6 +17,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 export class RegisterPage implements OnInit {
 registerForm: FormGroup;
 countries: Country[] = [];
+filteredCountries: Country[] = [];
+countrySearch: string = '';
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -30,7 +33,8 @@ countries: Country[] = [];
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       passwordRaw: ['', [Validators.required, Validators.minLength(6)]],
-      country: [null, Validators.required]
+      country: [null, Validators.required],
+      countrySearch: ['']
     });
 
 
@@ -40,20 +44,31 @@ countries: Country[] = [];
       this.loadCountries();
 
   }
-  private loadCountries() {
-    const url = 'https://countriesnow.space/api/v0.1/countries/flag/unicode';
-    this.http.get<any>(url).subscribe({
-      next: res => {
-        this.countries = res.data.map((c: any) => ({
-          id: c.name,
-          value: `${c.flag} ${c.name}`
-        }));
-      },
-      error: () => {
-        this.toast.show('Error cargando países', { color: 'danger' });
-      }
-    });
-  }
+private loadCountries() {
+  const url = 'https://countriesnow.space/api/v0.1/countries/flag/unicode';
+  this.http.get<any>(url).subscribe({
+    next: res => {
+      this.countries = res.data.map((c: any) => ({
+        id: c.iso2.toLowerCase(),
+        name: c.name,
+        flagUrl: `https://flagcdn.com/24x18/${c.iso2.toLowerCase()}.png`
+      }));
+      this.filteredCountries = [...this.countries]; // inicializa con todos
+    },
+    error: () => {
+      this.toast.show('Error cargando países', { color: 'danger' });
+    }
+  });
+}
+filterCountries() {
+  const term = this.countrySearch.trim().toLowerCase();
+  this.filteredCountries = this.countries.filter(c =>
+    c.name.toLowerCase().includes(term)
+  );
+}
+
+
+
 
   async onSubmit(){
 if(this.registerForm.invalid){

@@ -1,6 +1,7 @@
 export interface Country {
-  id: string;      // p.ej. "Colombia"
-  value: string;   // p.ej. "🇨🇴 Colombia"
+  id: string;      // "CO"
+  name: string;    // "Colombia"
+  flagUrl: string; // "https://flagcdn.com/24x18/co.png"
 }
 
 
