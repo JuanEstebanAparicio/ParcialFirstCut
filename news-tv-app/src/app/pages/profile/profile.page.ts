@@ -88,37 +88,42 @@ passwordsMatchValidator(form: FormGroup) {
 
 
  // 4. Envío del formulario
-  onSubmit() {
-    if (this.profileForm.invalid) {
-      this.toast.show('Completa todos los campos correctamente', { color: 'warning' });
-      return;
+onSubmit() {
+  const formValues = this.profileForm.value;
+
+  // … (validaciones previas)
+
+  const updated: any = {
+    ...this.currentUser,    // copia id, country, password viejos, etc.
+    name:     formValues.name,
+    lastName: formValues.lastName,
+    email:    formValues.email,
+    country:  formValues.country
+  };
+
+  // Sólo si ingresó nueva contraseña, la sobrescribimos
+  if (formValues.passwordRaw) {
+    // Hash SHA256
+    updated.password = this.encryptService.encrypt(formValues.passwordRaw);
+
+    // Si mantienes passwordCipher, asegúrate de que encryptAES exista:
+    if (this.encryptService.encryptAES) {
+      updated.passwordCipher = this.encryptService.encryptAES(formValues.passwordRaw);
     }
-    if (this.profileForm.hasError('passwordMismatch')) {
-      this.toast.show('Las contraseñas no coinciden', { color: 'danger' });
-      return;
-    }
-
-    const updated: any = { ...this.profileForm.value };
-    delete updated.confirmPassword;
-    updated.id       = this.currentUser!.id;
-    updated.password = updated.passwordRaw;
-    delete updated.passwordRaw;
-
-    const users = this.storage.getObject<any[]>('app_users') || [];
-    const index = users.findIndex(u => u.id === updated.id);
-    if (index === -1) {
-      this.toast.show('Usuario no encontrado en la base', { color: 'danger' });
-      return;
-    }
-
-    users[index] = updated;
-    this.storage.setObject('app_users', users);
-    this.storage.setObject('current_user', updated);
-
-    this.toast.show('Perfil actualizado con éxito', { color: 'success' });
-    this.navCtrl.navigateBack('/home');
   }
 
+  // Actualiza storage
+  const users = this.storage.getObject<User[]>('app_users') || [];
+  const idx = users.findIndex(u => u.id === updated.id);
+  users[idx] = updated;
+  this.storage.setObject('app_users', users);
+  this.storage.setObject('current_user', updated);
+
+  console.log('Usuario guardado final:', this.storage.getObject('current_user'));
+
+  this.toast.show('Perfil actualizado con éxito', { color: 'success' });
+  this.navCtrl.navigateBack('/home');
+}
   // Getters para validaciones en el template
   get name()            { return this.profileForm.get('name'); }
   get lastName()        { return this.profileForm.get('lastName'); }
