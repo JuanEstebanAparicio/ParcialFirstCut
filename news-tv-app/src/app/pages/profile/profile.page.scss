@@ -1,0 +1,47 @@
+.form-wrapper {
+  padding: 24px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.contenedor {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.item-flex {
+  flex: 1 1 45%;
+}
+
+.contenedorlbl {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0 8px;
+}
+
+.button-group {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.login-link {
+  font-size: 14px;
+  text-align: center;
+
+  a {
+    color: var(--ion-color-primary);
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 4px;
+  }
+}
+
+ion-toolbar {
+  background-color: coral;
+  --color: rgb(0, 4, 255);
+}
