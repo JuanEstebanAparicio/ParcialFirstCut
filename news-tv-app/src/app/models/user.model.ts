@@ -12,5 +12,9 @@ export interface User {
   password: string;
   email: string;
   country: Country;
+  passwordHash: string;
+  // Nuevo campo para almacenar el AES reversible
+  passwordCipher: string;
+
 }
 

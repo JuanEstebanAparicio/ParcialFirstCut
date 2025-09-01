@@ -33,6 +33,7 @@ export class UserService {
     if (users.find(u => u.email === userData.email)) {
       throw new Error('El correo ya existe');
     }
+  const raw = userData.passwordRaw;
 
     const newUser: User = {
       id: uuidv4(),
@@ -40,7 +41,11 @@ export class UserService {
       lastName: userData.lastName,
       email: userData.email,
       password: this.encrypt.encrypt(userData.passwordRaw),
-      country: userData.country
+      country: userData.country,
+      passwordHash:   this.encrypt.encrypt(raw),
+      passwordCipher: this.encrypt.encryptAES
+                         ? this.encrypt.encryptAES(raw)   // si ya tienes encryptAES
+                         : this.encrypt.encrypt(raw)     // u
     };
 
     users.push(newUser);

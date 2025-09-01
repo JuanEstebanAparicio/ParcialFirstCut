@@ -13,11 +13,11 @@
         <div class="contenedor fila">
           <ion-item class="item-flex">
             <ion-label position="floating">Nombre</ion-label>
-            <ion-input formControlName="name" type="text"></ion-input>
+            <ion-input formControlName="name"></ion-input>
           </ion-item>
           <ion-item class="item-flex">
             <ion-label position="floating">Apellido</ion-label>
-            <ion-input formControlName="lastName" type="text"></ion-input>
+            <ion-input formControlName="lastName"></ion-input>
           </ion-item>
         </div>
 
@@ -26,31 +26,29 @@
           <ion-label position="floating">Correo electrónico</ion-label>
           <ion-input formControlName="email" type="email"></ion-input>
         </ion-item>
-        <ion-text color="danger" *ngIf="email?.invalid && (email?.touched || email?.dirty)">
-          <div *ngIf="email?.errors?.['required']">Este campo es obligatorio.</div>
-          <div *ngIf="email?.errors?.['email']">Formato de correo inválido.</div>
-        </ion-text>
 
-        <!-- Contraseña -->
-        <ion-item>
-          <ion-label position="floating">Nueva contraseña</ion-label>
-          <ion-input formControlName="passwordRaw" type="password"></ion-input>
-        </ion-item>
-        <ion-text color="danger" *ngIf="passwordRaw?.invalid && (passwordRaw?.touched || passwordRaw?.dirty)">
-          <div *ngIf="passwordRaw?.errors?.['required']">Este campo es obligatorio.</div>
-          <div *ngIf="passwordRaw?.errors?.['minlength']">Debe tener al menos 6 caracteres.</div>
-        </ion-text>
+        <!-- Contraseña y Confirmación -->
+<ion-item>
+  <ion-label position="floating">Nueva contraseña</ion-label>
+  <ion-input
+    formControlName="passwordRaw"
+    type="password"
+    placeholder="(Deja vacío para no cambiar)"
+  >
+  </ion-input>
+</ion-item>
 
-        <!-- Confirmar contraseña -->
-        <ion-item>
-          <ion-label position="floating">Confirmar contraseña</ion-label>
-          <ion-input formControlName="confirmPassword" type="password"></ion-input>
-        </ion-item>
-        <ion-text color="danger" *ngIf="profileForm.errors?.['passwordMismatch'] && confirmPassword?.touched">
-          Las contraseñas no coinciden.
-        </ion-text>
+<ion-item>
+  <ion-label position="floating">Confirmar contraseña</ion-label>
+  <ion-input
+    formControlName="confirmPassword"
+    type="password"
+    placeholder="(Deja vacío para no cambiar)"
+  >
+  </ion-input>
+</ion-item>
 
-        <!-- Buscador y Select de país -->
+        <!-- Búsqueda y selección de país -->
         <div class="contenedorlbl">
           <ion-label>Busca tu país</ion-label>
           <ion-label>Selecciona tu país</ion-label>
@@ -60,19 +58,26 @@
           <ion-item class="item-flex">
             <ion-searchbar
               [(ngModel)]="countrySearch"
-              [ngModelOptions]="{standalone: true}"
-              placeholder="EJ: Colombia"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="EJ: Col"
               debounce="300"
               (ionInput)="filterCountries()"
               showCancelButton="focus"
-              animated="true">
-            </ion-searchbar>
+            ></ion-searchbar>
           </ion-item>
 
           <ion-item class="item-flex">
             <ion-select formControlName="country" interface="popover">
-              <ion-select-option *ngFor="let c of filteredCountries" [value]="c">
-                <img [src]="c.flagUrl" width="24" height="18" style="margin-right: 8px;" />
+              <ion-select-option
+                *ngFor="let c of filteredCountries"
+                [value]="c"
+              >
+                <img
+                  [src]="c.flagUrl"
+                  width="24"
+                  height="18"
+                  style="margin-right: 8px;"
+                />
                 {{ c.name }}
               </ion-select-option>
             </ion-select>
@@ -81,9 +86,14 @@
 
       </ion-list>
 
-      <!-- Botón -->
+      <!-- Botón Guardar -->
       <div class="button-group">
-        <ion-button expand="block" type="submit" [disabled]="profileForm.invalid" color="success">
+        <ion-button
+          expand="block"
+          type="submit"
+          [disabled]="profileForm.invalid"
+          color="success"
+        >
           Guardar cambios
         </ion-button>
       </div>
