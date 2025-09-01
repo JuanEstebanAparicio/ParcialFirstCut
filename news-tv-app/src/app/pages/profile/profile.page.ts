@@ -15,6 +15,8 @@ export class ProfilePage implements OnInit {
   profileForm: FormGroup;
   currentUser: User | null = null;
   filteredCountries: any[] = [];
+  countrySearch: string = '';
+
 
   constructor(
     private fb: FormBuilder,
@@ -53,6 +55,16 @@ const allCountries = this.storage.getObject<any[]>('countries') || [];
 this.filteredCountries = allCountries.filter(c => c.name);
 
   }
+   filterCountries() {
+    const allCountries = this.storage.getObject<any[]>('countries') || [];
+    const term = this.countrySearch.trim().toLowerCase();
+
+    this.filteredCountries = term
+      ? allCountries.filter(c => c.name.toLowerCase().includes(term))
+      : allCountries;
+  }
+
+
 
   passwordsMatchValidator(form: FormGroup) {
     const pass = form.get('passwordRaw')?.value;

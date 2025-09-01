@@ -19,6 +19,7 @@ export class RegisterPage implements OnInit {
   countrySearch: string = '';
   submitted = false;
 
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -98,6 +99,8 @@ export class RegisterPage implements OnInit {
       this.toast.show(err.message, { color: 'danger' });
     }
   }
+  
+  
 
   // Getters para facilitar el HTML
   get name() { return this.registerForm.get('name'); }
