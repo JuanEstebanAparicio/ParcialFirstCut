@@ -10,9 +10,6 @@
         <ion-label>{{ cat | titlecase }}</ion-label>
       </ion-item>
     </ion-list>
-    <ion-item lines="full" button (click)="logout()" color="danger">
-      <ion-label>Cerrar sesión</ion-label>
-    </ion-item>
   </ion-content>
 </ion-menu>
 
@@ -23,9 +20,10 @@
     </ion-buttons>
     <ion-title>The News: <strong>{{ selectedCategory | titlecase }}</strong> </ion-title>
         <ion-buttons slot="end">
-      <ion-button (click)="openUserMenu($event)">
-        <ion-icon name="person-circle-outline"></ion-icon>
-      </ion-button>
+<ion-button (click)="openUserMenu($event)">
+  <ion-icon name="person-circle-outline" style="font-size: 28px;"></ion-icon>
+</ion-button>
+
     </ion-buttons>
 
   </ion-toolbar>

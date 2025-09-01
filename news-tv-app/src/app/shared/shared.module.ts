@@ -15,7 +15,7 @@ import { SidebarComponent } from '../components/sidebar/sidebar.component';
 import { ListComponent } from '../components/list/list.component';
 import { ModalComponent } from '../components/modal/modal.component';
 import { UserFormComponent } from '../components/user-form/user-form.component';
-
+import { UserMenuComponent } from '../components/user-menu/user-menu.component';
 @NgModule({
   declarations: [
     InputComponent,
@@ -28,7 +28,8 @@ import { UserFormComponent } from '../components/user-form/user-form.component';
     SidebarComponent,
     ListComponent,
     ModalComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserMenuComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +54,8 @@ import { UserFormComponent } from '../components/user-form/user-form.component';
     SidebarComponent,
     ListComponent,
     ModalComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserMenuComponent
   ]
 })
 export class SharedModule {}
