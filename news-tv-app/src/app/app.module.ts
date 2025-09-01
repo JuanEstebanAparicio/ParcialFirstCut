@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
 import { NewsDetailModalComponent } from './components/news-detail-modal/news-detail-modal.component';
 
 

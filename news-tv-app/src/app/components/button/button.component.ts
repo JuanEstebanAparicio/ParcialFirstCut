@@ -1,4 +1,4 @@
-// src/app/components/button/button.component.ts
+
 import { Component, Input } from '@angular/core';
 
 @Component({

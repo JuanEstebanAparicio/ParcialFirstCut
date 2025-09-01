@@ -17,17 +17,17 @@ export class UserService {
     private encrypt: EncryptService
   ) {}
 
-  // Lee todos los usuarios registrados
+
   private getAllUsers(): User[] {
     return this.storage.getObject<User[]>(this.STORAGE_KEY) || [];
   }
 
-  // Guarda la lista completa de usuarios
+
   private saveAllUsers(users: User[]): void {
     this.storage.setObject(this.STORAGE_KEY, users);
   }
 
-  // Registra un nuevo usuario
+
   register(userData: Omit<User, 'id' | 'password'> & { passwordRaw: string }): User {
     const users = this.getAllUsers();
     if (users.find(u => u.email === userData.email)) {
@@ -53,7 +53,7 @@ export class UserService {
     return newUser;
   }
 
-  // Autentica un usuario
+
   login(email: string, passwordRaw: string): User {
     const users = this.getAllUsers();
     const user = users.find(u => u.email === email);
@@ -61,17 +61,16 @@ export class UserService {
       throw new Error('Credenciales inválidas');
     }
 
-    // Guarda el usuario actual en localStorage
+
     this.storage.setObject(this.CURRENT_USER, user);
     return user;
   }
 
-  // Desloguea al usuario
   logout(): void {
     this.storage.remove(this.CURRENT_USER);
   }
 
-  // Obtiene el usuario activo (o null)
+
   getCurrentUser(): User | null {
     return this.storage.getObject<User>(this.CURRENT_USER);
   }

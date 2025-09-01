@@ -1,7 +1,7 @@
 export interface Country {
-  id: string;      // "CO"
-  name: string;    // "Colombia"
-  flagUrl: string; // "https://flagcdn.com/24x18/co.png"
+  id: string;     
+  name: string;    
+  flagUrl: string; 
 }
 
 
@@ -13,7 +13,6 @@ export interface User {
   email: string;
   country: Country;
   passwordHash: string;
-  // Nuevo campo para almacenar el AES reversible
   passwordCipher: string;
 
 }
