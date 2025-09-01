@@ -1,3 +1,10 @@
-<p>
-  user-menu works!
-</p>
+<ion-list>
+  <ion-item button (click)="close('edit')">
+    <ion-icon name="create-outline" slot="start"></ion-icon>
+    <ion-label>Editar perfil</ion-label>
+  </ion-item>
+  <ion-item button (click)="close('logout')">
+    <ion-icon name="log-out-outline" slot="start"></ion-icon>
+    <ion-label>Cerrar sesión</ion-label>
+  </ion-item>
+</ion-list>

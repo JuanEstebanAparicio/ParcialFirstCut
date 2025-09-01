@@ -62,4 +62,11 @@ logout() {
 this.storage.remove('current_user');
 this.navCtrl.navigateRoot('/login');
 }
+
+//Mi perfil components
+
+
+
+
+
 }
