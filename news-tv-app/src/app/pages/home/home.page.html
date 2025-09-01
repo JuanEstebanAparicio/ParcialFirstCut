@@ -21,16 +21,19 @@
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
-    <ion-title>The News</ion-title>
+    <ion-title>The News: <strong>{{ selectedCategory | titlecase }}</strong> </ion-title>
+        <ion-buttons slot="end">
+      <ion-button (click)="openUserMenu($event)">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content id="main-content" class="ion-padding">
-  <!-- Noticia principal -->
 
-
-
-  <!-- Noticias secundarias -->
 <ion-list>
   <ion-card
     *ngFor="let article of articles"
