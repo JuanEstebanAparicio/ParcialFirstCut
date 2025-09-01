@@ -7,8 +7,8 @@
 <ion-content [fullscreen]="true">
   <div class="form-wrapper">
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-      <ion-list lines="none">
 
+      <ion-list lines="none">
         <!-- Nombre y Apellido -->
         <div class="contenedor fila">
           <ion-item class="item-flex">
@@ -26,34 +26,42 @@
           <ion-label position="floating">Correo electrónico</ion-label>
           <ion-input formControlName="email" type="email"></ion-input>
         </ion-item>
+        <ion-text color="danger" *ngIf="email?.invalid && (email?.touched || email?.dirty)">
+          <div *ngIf="email?.errors?.['required']">Este campo es obligatorio.</div>
+          <div *ngIf="email?.errors?.['email']">Formato de correo inválido.</div>
+        </ion-text>
 
-        <!-- Contraseña y Confirmación -->
-<ion-item>
-  <ion-label position="floating">Nueva contraseña</ion-label>
-  <ion-input
-    formControlName="passwordRaw"
-    type="password"
-    placeholder="(Deja vacío para no cambiar)"
-  >
-  </ion-input>
-</ion-item>
+        <!-- Contraseña -->
+        <ion-item>
+          <ion-label position="floating">Nueva contraseña</ion-label>
+          <ion-input
+            formControlName="passwordRaw"
+            type="password"
+            placeholder="(Deja vacío para no cambiar)"
+          ></ion-input>
+        </ion-item>
 
-<ion-item>
-  <ion-label position="floating">Confirmar contraseña</ion-label>
-  <ion-input
-    formControlName="confirmPassword"
-    type="password"
-    placeholder="(Deja vacío para no cambiar)"
-  >
-  </ion-input>
-</ion-item>
+        <!-- Confirmar contraseña -->
+        <ion-item>
+          <ion-label position="floating">Confirmar contraseña</ion-label>
+          <ion-input
+            formControlName="confirmPassword"
+            type="password"
+            placeholder="(Deja vacío para no cambiar)"
+          ></ion-input>
+        </ion-item>
+        <ion-text
+          color="danger"
+          *ngIf="profileForm.hasError('passwordMismatch') && (confirmPassword?.touched || confirmPassword?.dirty)"
+        >
+          Las contraseñas no coinciden.
+        </ion-text>
 
-        <!-- Búsqueda y selección de país -->
+        <!-- País -->
         <div class="contenedorlbl">
           <ion-label>Busca tu país</ion-label>
           <ion-label>Selecciona tu país</ion-label>
         </div>
-
         <div class="contenedor fila">
           <ion-item class="item-flex">
             <ion-searchbar
@@ -68,26 +76,30 @@
 
           <ion-item class="item-flex">
             <ion-select formControlName="country" interface="popover">
-              <ion-select-option
-                *ngFor="let c of filteredCountries"
-                [value]="c"
-              >
+              <ion-select-option *ngFor="let c of filteredCountries" [value]="c">
                 <img
                   [src]="c.flagUrl"
                   width="24"
                   height="18"
-                  style="margin-right: 8px;"
+                  style="margin-right: 8px"
                 />
                 {{ c.name }}
               </ion-select-option>
             </ion-select>
           </ion-item>
         </div>
-
       </ion-list>
 
-      <!-- Botón Guardar -->
+      <!-- Botones -->
       <div class="button-group">
+        <ion-button
+          fill="outline"
+          color="medium"
+          type="button"
+          (click)="onCancel()"
+        >
+          Cancelar
+        </ion-button>
         <ion-button
           expand="block"
           type="submit"
@@ -97,6 +109,7 @@
           Guardar cambios
         </ion-button>
       </div>
+
     </form>
   </div>
 </ion-content>
